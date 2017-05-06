@@ -21,10 +21,13 @@ export default async function deploy() {
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
 
-    await spawnAsync('eb', ['deploy', applicationEnvironment, '--process'], { stdio: 'inherit' })
-      .catch((error) => {
-        this.logger.log(error);
-      });
+    try {
+      await spawnAsync('git', ['add', 'config/config.json'], { stdio: 'inherit' });
+
+      await spawnAsync('eb', ['deploy', applicationEnvironment, '--process', '--staged'], { stdio: 'inherit' });
+    } catch (error) {
+      console.log(error);
+    }
   } catch (error) {
     this.logger.log(error);
   }
