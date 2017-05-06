@@ -1,0 +1,86 @@
+{
+  "name": "serverless-plugin-elastic-beanstalk",
+  "description": "A serverless plugin to deploy applications to AWS ElasticBeanstalk.",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "yarn clear",
+    "build": "babel src --out-dir dist",
+    "clear": "rm -rf dist",
+    "watch": "npm-watch",
+    "lint": "eslint .",
+    "test": "env TZ='UTC' NODE_ENV=test mocha test --compilers js:babel-core/register --require babel-polyfill --recursive"
+  },
+  "engines": {
+    "node": ">=6.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rawphp/serverless-plugin-elastic-beanstalk.git"
+  },
+  "keywords": [
+    "serverless",
+    "plugin",
+    "aws",
+    "elastic",
+    "beanstalk",
+    "command",
+    "CLI"
+  ],
+  "dependencies": {
+    "aws-sdk": "2.x.x",
+    "babel-polyfill": "6.x.x",
+    "bluebird": "3.x.x",
+    "chalk": "1.x.x",
+    "fs-promise": "2.x.x",
+    "lodash": "4.x.x",
+    "moment": "2.x.x",
+    "source-map-support": "0.x.x"
+  },
+  "devDependencies": {
+    "@types/node": "7.x.x",
+    "babel-cli": "6.x.x",
+    "babel-core": "6.x.x",
+    "babel-eslint": "7.x.x",
+    "babel-loader": "6.x.x",
+    "babel-preset-env": "1.x.x",
+    "babel-preset-stage-3": "6.x.x",
+    "chai": "3.x.x",
+    "dirty-chai": "1.x.x",
+    "esdoc": "0.x.x",
+    "esdoc-es7-plugin": "0.x.x",
+    "eslint": "3.x.x",
+    "eslint-config-airbnb": "14.x.x",
+    "eslint-plugin-import": "2.x.x",
+    "eslint-plugin-jsx-a11y": "4.x.x",
+    "eslint-plugin-react": "6.x.x",
+    "eslint-plugin-require-jsdoc": "1.x.x",
+    "mocha": "3.x.x",
+    "npm-watch": "0.x.x",
+    "sinon": "1.x.x",
+    "sinon-chai": "2.x.x",
+    "webpack": "2.x.x"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "."
+      ],
+      "extensions": [
+        "js",
+        "json"
+      ],
+      "ignore": "dist/"
+    },
+    "test": {
+      "patterns": [
+        "src",
+        "test"
+      ],
+      "extensions": "js",
+      "ignore": "",
+      "quiet": true
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "root": true,
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "id-length": [
+      2,
+      {
+        "min": 2,
+        "max": 25
+      }
+    ],
+    "new-cap": 2,
+    "func-names": 1,
+    "no-unused-vars": 1,
+    "require-jsdoc": 2,
+    "valid-jsdoc": 2,
+    "valid-typeof": 2,
+    "block-scoped-var": 2,
+    "complexity": 1,
+    "eqeqeq": 2,
+    "callback-return": 2,
+    "camelcase": 2,
+    "newline-before-return": 2,
+    "comma-style": 2,
+    "import/no-extraneous-dependencies": [
+      2,
+      {
+        "devDependencies": true
+      }
+    ],
+    "no-unused-expressions": 0,
+    "no-underscore-dangle": 0,
+    "no-param-reassign": 0,
+    "no-console": 0
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  }
+}
