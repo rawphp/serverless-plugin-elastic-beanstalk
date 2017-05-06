@@ -5,25 +5,6 @@ import { exec } from 'child_process';
 const execAsync = Promise.promisify(exec);
 
 /**
- * Waits for promise to resolve and logs data
- *
- * @param {Promise} promise the promise to wait for
- * @param {Object}  logger  logger instance
- *
- * @returns {undefined}
- */
-async function waitFor(promise, logger) {
-  promise.stdout.on('data', (data) => {
-    logger.log(data);
-  });
-  promise.stderr.on('data', (data) => {
-    logger.log(data);
-  });
-
-  return promise;
-}
-
-/**
  * Retrieves stack Ouputs from AWS.
  *
  * @returns {undefined}
@@ -38,8 +19,23 @@ export default async function deploy() {
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
 
-    await waitFor(execAsync('git add config/config.json'), this.logger);
-    await waitFor(execAsync(`eb deploy ${applicationEnvironment} --process --staged`), this.logger);
+    await execAsync('git add config/config.json', (error, stdout, stderr) => {
+      if (error) {
+        this.logger.log(error);
+      }
+
+      this.logger.log(stdout);
+      this.logger.log(stderr);
+    });
+
+    await execAsync(`eb deploy ${applicationEnvironment} --process --staged`, (error, stdout, stderr) => {
+      if (error) {
+        this.logger.log(error);
+      }
+
+      this.logger.log(stdout);
+      this.logger.log(stderr);
+    });
   } catch (error) {
     this.logger.log(error);
   }
