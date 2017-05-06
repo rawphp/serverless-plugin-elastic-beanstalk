@@ -9,7 +9,7 @@ A serverless plugin to deploy applications to AWS ElasticBeanstalk.
 
 ## Features
 
-* `elastic-beanstalk` - This downloads this service's outputs to a file in */PROJECT_ROOT/.serverless/stack-outputs.json* and updates the config file in S3.
+* `elastic-beanstalk` - This uploads an ElasticBeanstalk application.
 
 ## Usage
 
