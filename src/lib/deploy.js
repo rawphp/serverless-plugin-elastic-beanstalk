@@ -19,23 +19,13 @@ export default async function deploy() {
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
 
-    await execAsync('git add config/config.json', (error, stdout, stderr) => {
-      if (error) {
-        this.logger.log(error);
-      }
+    let result = await execAsync('git add config/config.json');
 
-      this.logger.log(stdout);
-      this.logger.log(stderr);
-    });
+    this.logger.log('git add completed successfully', result);
 
-    await execAsync(`eb deploy ${applicationEnvironment} --process --staged`, (error, stdout, stderr) => {
-      if (error) {
-        this.logger.log(error);
-      }
+    result = await execAsync(`eb deploy ${applicationEnvironment} --process --staged`);
 
-      this.logger.log(stdout);
-      this.logger.log(stderr);
-    });
+    this.logger.log('eb deploy completed successfully', result);
   } catch (error) {
     this.logger.log(error);
   }
