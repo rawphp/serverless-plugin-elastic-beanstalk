@@ -2,7 +2,26 @@ import Promise from 'bluebird';
 import fsp from 'fs-promise';
 import { exec } from 'child_process';
 
-const spawnAsync = Promise.promisify(exec);
+const execAsync = Promise.promisify(exec);
+
+/**
+ * Waits for promise to resolve and logs data
+ *
+ * @param {Promise} promise the promise to wait for
+ * @param {Object}  logger  logger instance
+ *
+ * @returns {undefined}
+ */
+async function waitFor(promise, logger) {
+  promise.stdout.on('data', (data) => {
+    logger.log(data);
+  });
+  promise.stderr.on('data', (data) => {
+    logger.log(data);
+  });
+
+  return promise;
+}
 
 /**
  * Retrieves stack Ouputs from AWS.
@@ -19,21 +38,8 @@ export default async function deploy() {
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
 
-    // await spawnAsync('git', ['add', 'config/config.json'], { stdio: 'inherit' });
-    await spawnAsync('git add config/config.json');
-
-    try {
-      const args = ['deploy', applicationEnvironment, '--process', '--staged'];
-
-      this.logger.log(`Calling eb with: ${args}`);
-
-      // await spawnAsync('eb', args, { stdio: 'inherit' });
-      await spawnAsync(`eb ${args.join(' ')}`);
-    } catch (error) {
-      console.log('spawnAsync.error', error);
-
-      throw error;
-    }
+    await waitFor(execAsync('git add config/config.json'), this.logger);
+    await waitFor(execAsync(`eb deploy ${applicationEnvironment} --process --staged`), this.logger);
   } catch (error) {
     this.logger.log(error);
   }
