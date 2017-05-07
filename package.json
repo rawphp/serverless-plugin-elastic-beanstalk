@@ -1,12 +1,13 @@
 {
   "name": "serverless-plugin-elastic-beanstalk",
   "description": "A serverless plugin to deploy applications to AWS ElasticBeanstalk.",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "prebuild": "yarn clear",
     "build": "babel src --out-dir dist",
+    "release": "yarn build && yarn version && npm publish .",
     "clear": "rm -rf dist",
     "watch": "npm-watch",
     "lint": "eslint .",
