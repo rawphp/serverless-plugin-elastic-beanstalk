@@ -44,7 +44,7 @@ export default async function deploy() {
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
 
-    this.logger.log(`PATH: ${process.ENV}`);
+    this.logger.log(`PATH: ${process.env}`);
 
     try {
       const git = await exec('which git');
