@@ -44,6 +44,8 @@ export default async function deploy() {
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
 
+    this.logger.log(`PATH: ${process.ENV}`);
+
     try {
       const git = await exec('which git');
       this.logger.log(`GIT: ${git.stdout}`);
@@ -53,19 +55,21 @@ export default async function deploy() {
       throw error;
     }
 
-    try {
-      const eb = await exec('which eb');
-      this.logger.log(`EB: ${eb.stdout}`);
-    } catch (error) {
-      logger.error(error);
+    // try {
+    //   const eb = await exec('which eb');
+    //   this.logger.log(`EB: ${eb.stdout}`);
+    // } catch (error) {
+    //   logger.error(error);
 
-      throw error;
-    }
+    //   throw error;
+    // }
 
     await waitFor(spawn('git', ['add', 'config/config.json']));
 
-    await waitFor(spawn('eb', ['deploy', applicationEnvironment, '--process', '--staged']));
+    await waitFor(spawn('/root/.local/bin/eb', ['deploy', applicationEnvironment, '--process', '--staged']));
   } catch (error) {
     this.logger.log(error);
+
+    throw error;
   }
 }
