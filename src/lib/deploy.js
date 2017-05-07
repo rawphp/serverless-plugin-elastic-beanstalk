@@ -20,7 +20,7 @@ async function waitFor(promise) {
     logger.log(data.toString());
   });
 
-  await promise;
+  return promise;
 }
 
 /**
