@@ -1,6 +1,8 @@
 import fsp from 'fs-promise';
 import { spawn, exec } from 'child-process-promise';
 
+const logger = console;
+
 /**
  * Wait for spawn to complete.
  *
@@ -9,18 +11,22 @@ import { spawn, exec } from 'child-process-promise';
  * @returns {undefined}
  */
 async function waitFor(promise) {
-  const child = promise.childProcess;
+  try {
+    const child = promise.childProcess;
 
-  const logger = console;
+    child.stdout.on('data', (data) => {
+      logger.log(data.toString());
+    });
+    child.stderr.on('data', (data) => {
+      logger.log(data.toString());
+    });
 
-  child.stdout.on('data', (data) => {
-    logger.log(data.toString());
-  });
-  child.stderr.on('data', (data) => {
-    logger.log(data.toString());
-  });
+    return promise;
+  } catch (error) {
+    logger.error(error, promise.child);
 
-  return promise;
+    return promise;
+  }
 }
 
 /**
@@ -41,10 +47,8 @@ export default async function deploy() {
     const git = await exec('which git');
     const eb = await exec('which eb');
 
-    const logger = console;
-
-    logger.log(git);
-    logger.log(eb);
+    this.logger.log(`GIT: ${git.stdout}`);
+    this.logger.log(`EB: ${eb.stdout}`);
 
     await waitFor(spawn('git', ['add', 'config/config.json']));
 
