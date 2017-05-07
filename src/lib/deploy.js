@@ -1,5 +1,5 @@
 import fsp from 'fs-promise';
-import { spawn } from 'child-process-promise';
+import { spawn, exec } from 'child-process-promise';
 
 /**
  * Wait for spawn to complete.
@@ -37,6 +37,9 @@ export default async function deploy() {
     const config = await fsp.readJson(configPath);
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
+
+    this.logger.log(`GIT: ${await exec('which git')}`);
+    this.logger.log(`EB: ${await exec('which eb')}`);
 
     await waitFor(spawn('git', ['add', 'config/config.json']));
 
