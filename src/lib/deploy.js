@@ -44,7 +44,11 @@ export default async function deploy() {
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
 
-    logger.log('PATH', process.env);
+    logger.log('PATH', process.env.PATH);
+
+    process.env.PATH = `/root/.local/bin:${process.env.PATH}`;
+
+    logger.log('PATH', process.env.PATH);
 
     // try {
     //   const eb = await exec('which eb');
@@ -57,7 +61,7 @@ export default async function deploy() {
 
     await waitFor(spawn('git', ['add', 'config/config.json']));
 
-    await waitFor(spawn('/root/.local/bin/eb', ['deploy', applicationEnvironment, '--process', '--staged']));
+    await waitFor(spawn('eb', ['deploy', applicationEnvironment, '--process', '--staged']));
   } catch (error) {
     this.logger.log(error);
 
