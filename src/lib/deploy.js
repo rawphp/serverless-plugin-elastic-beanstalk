@@ -44,11 +44,23 @@ export default async function deploy() {
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
 
-    const git = await exec('which git');
-    const eb = await exec('which eb');
+    try {
+      const git = await exec('which git');
+      this.logger.log(`GIT: ${git.stdout}`);
+    } catch (error) {
+      logger.error(error);
 
-    this.logger.log(`GIT: ${git.stdout}`);
-    this.logger.log(`EB: ${eb.stdout}`);
+      throw error;
+    }
+
+    try {
+      const eb = await exec('which eb');
+      this.logger.log(`EB: ${eb.stdout}`);
+    } catch (error) {
+      logger.error(error);
+
+      throw error;
+    }
 
     await waitFor(spawn('git', ['add', 'config/config.json']));
 
