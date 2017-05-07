@@ -33,6 +33,7 @@
     "babel-polyfill": "6.x.x",
     "bluebird": "3.x.x",
     "chalk": "1.x.x",
+    "child-process-promise": "2.x.x",
     "fs-promise": "2.x.x",
     "lodash": "4.x.x",
     "moment": "2.x.x",
