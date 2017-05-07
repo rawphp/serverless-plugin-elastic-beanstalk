@@ -41,8 +41,8 @@ export default async function deploy() {
     const git = await exec('which git');
     const eb = await exec('which eb');
 
-    this.logger.log(`GIT: ${git}`);
-    this.logger.log(`EB: ${eb}`);
+    this.logger.log(`GIT: ${git.toString()}`);
+    this.logger.log(`EB: ${eb.toString()}`);
 
     await waitFor(spawn('git', ['add', 'config/config.json']));
 
