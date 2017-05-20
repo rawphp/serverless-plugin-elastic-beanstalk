@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "yarn clear",
     "build": "babel src --out-dir dist",
-    "release": "yarn build && yarn version && npm publish .",
+    "prerelease": "yarn build && yarn version",
     "clear": "rm -rf dist",
     "watch": "npm-watch",
     "lint": "eslint .",

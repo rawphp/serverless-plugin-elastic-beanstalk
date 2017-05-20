@@ -1,5 +1,5 @@
 import fsp from 'fs-promise';
-import { spawn, exec } from 'child-process-promise';
+import { spawn } from 'child-process-promise';
 
 const logger = console;
 
@@ -44,20 +44,8 @@ export default async function deploy() {
 
     const applicationEnvironment = config[this.config.variables.applicationEnvironmentName];
 
-    logger.log('PATH', process.env.PATH);
-
     process.env.PATH = `/root/.local/bin:${process.env.PATH}`;
 
-    logger.log('PATH', process.env.PATH);
-
-    // try {
-    //   const eb = await exec('which eb');
-    //   this.logger.log(`EB: ${eb.stdout}`);
-    // } catch (error) {
-    //   logger.error(error);
-
-    //   throw error;
-    // }
 
     await waitFor(spawn('git', ['add', 'config/config.json']));
 

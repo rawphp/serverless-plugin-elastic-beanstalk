@@ -28,15 +28,46 @@ custom:
     variables:
       applicationName: CartApplicationName
       applicationEnvironmentName: CartApplicationEvironmentName
-    configure:
-      key: ${opt:key}
-      custom: scripts/configure.js
+    key: ${opt:key}
+    script: scripts/configure.js
 
 functions:
 ...
 resources:
+  Resources:
+    CartApplication:
+      Type: AWS::ElasticBeanstalk::Application
+      Properties:
+        ApplicationName: ${self:service}
+        Description: Cart application
+    CartEnvironment:
+      Type: AWS::ElasticBeanstalk::Environment
+      Properties:
+        ApplicationName:
+          Ref: CartApplication
+        Description: Cart environment
+        SolutionStackName: '64bit Amazon Linux 2017.03 v4.1.0 running Node.js'
+        OptionSettings:
+        - Namespace: aws:elasticbeanstalk:container:nodejs
+          OptionName: NodeVersion
+          Value: '7.6.0'
+        - Namespace: aws:elasticbeanstalk:environment
+          OptionName: EnvironmentType
+          Value: SingleInstance
+    ...
+  Outputs:
+    CartApplicationName:
+      Description: Cart application name
+      Value:
+        Ref: CartApplication
+    CartApplicationEvironmentName:
+      Description: Cart environment name
+      Value:
+        Ref: CartEnvironment
 ...
 ```
+
+**NOTE:** If providing a custom script, that script must be exported from the module using `module.exports`.
 
 ### shell command:
 ```shell
