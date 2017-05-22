@@ -29,6 +29,7 @@ custom:
       applicationName: CartApplicationName
       applicationEnvironmentName: CartApplicationEvironmentName
     key: ${opt:key}
+    platform: nodejs
     script: scripts/configure.js
 
 functions:

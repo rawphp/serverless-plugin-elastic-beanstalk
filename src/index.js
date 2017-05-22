@@ -1,6 +1,8 @@
 import Promise from 'bluebird';
+import path from 'path';
 import validate from './lib/validate';
 import configure from './lib/configure';
+import build from './lib/build';
 import deploy from './lib/deploy';
 
 class ElasticBeanstalk {
@@ -12,10 +14,13 @@ class ElasticBeanstalk {
    */
   constructor(serverless, options) {
     this.serverless = serverless;
+    this.servicePath = this.serverless.config.servicePath;
     this.logger = this.serverless.cli;
     this.options = options;
     this.service = this.serverless.service;
     this.provider = serverless.getProvider('aws');
+    this.tmpDir = path.join(this.servicePath, '/.serverless');
+    this.artifactTmpDir = path.join(this.tmpDir, './artifacts');
 
     if (this.service.custom) {
       this.config = this.service.custom['elastic-beanstalk'];
@@ -52,6 +57,7 @@ class ElasticBeanstalk {
       'elastic-beanstalk:deploy': () => Promise.bind(this)
         .then(validate)
         .then(configure)
+        .then(build)
         .then(deploy),
 
       // TODO: figure out how to cancel a hook if not required to run
