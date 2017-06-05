@@ -1,5 +1,7 @@
 # Elastic Beanstalk Deployment Plugin
 
+[![Build Status](https://travis-ci.org/rawphp/serverless-plugin-elastic-beanstalk.svg?branch=master)](https://travis-ci.org/rawphp/serverless-plugin-elastic-beanstalk)
+
 A serverless plugin to deploy applications to AWS ElasticBeanstalk.
 
 ## Dependencies
