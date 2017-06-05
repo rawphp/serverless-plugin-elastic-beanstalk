@@ -12,6 +12,9 @@ describe('ElasticBeanstalk', () => {
   const sandbox = sinon.sandbox.create();
   const serverless = {
     cli: {},
+    config: {
+      servicePath: '',
+    },
     service: {},
     getProvider: sandbox.stub(),
   };

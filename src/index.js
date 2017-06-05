@@ -59,12 +59,6 @@ class ElasticBeanstalk {
         .then(configure)
         .then(build)
         .then(deploy),
-
-      // TODO: figure out how to cancel a hook if not required to run
-      // 'after:outputs:download:download': () => Promise.bind(this)
-      //   .then(validate)
-      //   .then(configure)
-      //   .then(deploy),
     };
   }
 }

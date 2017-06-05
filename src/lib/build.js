@@ -1,8 +1,5 @@
-import path from 'path';
-import Yazl from 'yazl';
 import fsp from 'fs-promise';
-import ModuleBundler from './ModuleBundler';
-import SourceBundler from './SourceBundler';
+import Bundler from 'bundle-bundler';
 import getVersion from './getVersion';
 
 /**
@@ -19,7 +16,6 @@ export default async function build() {
   this.config.version = getVersion(this.config);
 
   const applicationName = config[this.config.variables.applicationName];
-  const environmentName = config[this.config.variables.environmentName];
   const versionLabel = `${applicationName}-${this.config.version}`;
   const fileName = `bundle-${versionLabel}.zip`;
 
@@ -27,38 +23,17 @@ export default async function build() {
 
   await fsp.ensureDir(this.artifactTmpDir);
 
-  const artifact = new Yazl.ZipFile();
-  const moduleIncludes = [];
+  const buildConfig = this.config.build;
 
-  await new SourceBundler({
-    ...this.config.build,
-    servicePath: this.servicePath,
-  }, artifact)
-    .bundle({
-      exclude: [],
-      include: this.config.build.include,
-    });
-
-  await new ModuleBundler({
-    ...this.config,
-    servicePath: this.servicePath,
-  },
-    artifact,
-  )
-    .bundle({
-      include: moduleIncludes,
-      ...this.config.modules,
-    });
-
-  const zipPath = path.resolve(this.artifactTmpDir, fileName);
-
-  await new Promise((resolve, reject) => {
-    artifact.outputStream.pipe(fsp.createWriteStream(zipPath))
-      .on('error', reject)
-      .on('close', resolve);
-
-    artifact.end();
+  const bundler = new Bundler({
+    rootDir: process.cwd(),
+    logger: this.logger,
+    babel: buildConfig.babel || false,
+    sourceMaps: buildConfig.sourceMaps || false,
   });
 
-  this.logger.log('Application Bundle Built Successfully');
+  await bundler.bundle({
+    output: `${this.artifactTmpDir}/${fileName}`,
+    include: this.config.build.include,
+  });
 }
