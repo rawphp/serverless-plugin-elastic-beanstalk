@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+    - "6"
+    - "7"
+
+sudo: false
+
+script:
+    - yarn lint
+    - yarn test
+
+notifications:
+    email:
+        tom@x-c-o-d-e.com
