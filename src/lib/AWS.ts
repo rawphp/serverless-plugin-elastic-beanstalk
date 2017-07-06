@@ -1,5 +1,5 @@
 import * as BPromise from 'bluebird';
-import { IEB, IS3, IServerless } from "../index.d";
+import { IEB, IS3, IServerless } from "../types";
 
 /**
  * Get S3 instance.

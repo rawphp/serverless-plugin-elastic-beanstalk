@@ -2,7 +2,7 @@ import * as BPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
 import CLI from 'serverless/lib/classes/CLI';
-import { IEB, IS3 } from "../index.d";
+import { IEB, IS3 } from "../types";
 
 /**
  * List of supported platforms.

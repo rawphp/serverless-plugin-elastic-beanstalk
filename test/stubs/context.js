@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 
 /**
  * Returns a new context.
@@ -20,10 +20,10 @@ function getContext() {
   context.CF = {
     describeStacksAsync: sandbox.stub(),
   };
-  context.S3 = {
-    getObjectAsync: sandbox.stub(),
-    putObjectAsync: sandbox.stub(),
-  };
+  // context.S3 = {
+  //   getObjectAsync: sandbox.stub(),
+  //   putObjectAsync: sandbox.stub(),
+  // };
   context.options = { stage: 'dev', path: '/tmp' };
   context.logger = {
     log: args => context.logSpy(args),

@@ -1,0 +1,40 @@
+service: test-app
+description: The AWS CloudFormation template for Phoenix Mock Server
+
+frameworkVersion: ">= 1.0.0"
+
+plugins:
+  # - serverless-plugin-stack-config
+  # - serverless-plugin-elastic-beanstalk
+
+custom:
+  elastic-beanstalk:
+    variables:
+      applicationName: ProxyApplicationName
+      environmentName: ProxyEnvironmentName
+    key: ${opt:key}
+    platform: nodejs
+    bucket: ${self:service}-${opt:env}
+    version: ${opt:version}
+    build:
+      babel: true
+      sourceMaps: true
+      include:
+        - .ebextensions/**
+        - src/**
+        - resources/schema/**
+        - package.json
+        - ts-definition.json
+        - ts-env.json
+
+provider:
+  name: aws
+  stage: ${opt:env}
+  region: ${opt:region}
+
+resources:
+  Resources:
+    Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:service}-${opt:env}

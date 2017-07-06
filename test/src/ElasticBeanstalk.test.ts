@@ -1,26 +1,30 @@
 import { expect } from 'chai';
+import * as path from 'path';
+import * as Serverless from 'serverless';
 import * as sinon from 'sinon';
-import ElasticBeanstalk from './../../src';
+import ElasticBeanstalkPlugin from './../../src/ElasticBeanstalkPlugin';
 
-describe('ElasticBeanstalk', () => {
-  let eb;
+const fixturePath = path.resolve(`${process.cwd()}/test/fixture`);
+
+describe.only('ElasticBeanstalkPlugin', () => {
+  let plugin;
   const sandbox = sinon.sandbox.create();
-  const serverless = {
-    cli: {},
-    config: {
-      servicePath: '',
-    },
-    getProvider: sandbox.stub(),
-    service: {},
-  };
+  let serverless;
 
-  beforeEach(() => {
-    eb = new ElasticBeanstalk(serverless, {});
+  beforeEach(async () => {
+    serverless = new Serverless({});
+    serverless.config.update({ servicePath: fixturePath });
+    serverless.pluginManager.cliOptions = {
+      stage: 'dev',
+    };
+
+    await serverless.init();
+
+    plugin = new ElasticBeanstalkPlugin(serverless, {});
   });
 
   it('new ElasticBeanstalk', () => {
-    expect(eb).to.be.an.instanceOf(ElasticBeanstalk);
-    expect(eb.serverless.getProvider.called).to.equal(true);
-    expect(eb.options).to.deep.equal({});
+    expect(plugin).to.be.an.instanceOf(ElasticBeanstalkPlugin);
+    expect(plugin.options).to.deep.equal({});
   });
 });

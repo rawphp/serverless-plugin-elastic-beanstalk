@@ -1,6 +1,6 @@
 import Bundler from 'bundle-bundler';
 import * as fsp from 'fs-promise';
-import { IBuildConfig, IPluginConfig } from "../index.d";
+import { IBuildConfig, IPluginConfig } from "../types";
 import getVersion from './getVersion';
 
 /**

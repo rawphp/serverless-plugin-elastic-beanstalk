@@ -1,7 +1,7 @@
 import * as IPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
-import { IEB, IS3 } from '../index.d';
+import { IEB, IS3 } from '../types';
 import getVersion from './getVersion';
 
 /**
