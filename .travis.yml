@@ -1,15 +1,25 @@
 language: node_js
 
 node_js:
-    - "6"
-    - "7"
+  - "6"
+  - "7"
 
 sudo: false
 
-script:
-    - yarn lint
-    - yarn test
+jobs:
+  include:
+    - stage: validate
+      script:
+        - yarn lint
+        - yarn test
+
+    - stage: deploy
+      provider: npm
+      api_key: ""
+      script:
+        - yarn build
+        - npm publish
 
 notifications:
-    email:
-        tom@x-c-o-d-e.com
+  email:
+    tom@x-c-o-d-e.com

@@ -1,6 +1,7 @@
-import Promise from 'bluebird';
-import fsp from 'fs-promise';
-import path from 'path';
+import * as IPromise from 'bluebird';
+import * as fsp from 'fs-promise';
+import * as path from 'path';
+import { IEB, IS3 } from '../index.d';
 import getVersion from './getVersion';
 
 /**
@@ -14,7 +15,7 @@ export default async function deploy() {
   const configPath = `${process.cwd()}/.serverless/stack-config.json`;
 
   const config = await fsp.readJson(configPath);
-  this.config.version = getVersion(this.config);
+  this.config.version = getVersion(this.config.version);
 
   const applicationName = config[this.config.variables.applicationName];
   const environmentName = config[this.config.variables.environmentName];
@@ -24,43 +25,36 @@ export default async function deploy() {
 
   process.env.PATH = `/root/.local/bin:${process.env.PATH}`;
 
-  this.S3 = Promise.promisifyAll(
-    new this.provider.sdk.S3({
-      apiVersion: '2006-03-01',
-      region: this.options.region,
-    }),
-  );
+  const S3: IS3 = this.getS3Instance(this.serverless, this.options.region);
 
   this.logger.log('Uploading Application Bundle to S3...');
 
-  await this.S3.uploadAsync({
+  await S3.uploadAsync({
+    Body: fsp.createReadStream(bundlePath),
     Bucket: this.config.bucket,
     Key: fileName,
-    Body: fsp.createReadStream(bundlePath),
   });
 
   this.logger.log('Application Bundle Uploaded to S3 Successfully');
 
-  this.EB = Promise.promisifyAll(
-    new this.provider.sdk.ElasticBeanstalk({ apiVersion: '2010-12-01', region: this.options.region }),
-  );
+  const EB: IEB = this.getElasticBeanstalkInstance(this.serverless, this.options.region);
 
   this.logger.log('Creating New Application Version...');
 
-  await this.EB.createApplicationVersionAsync({
+  await EB.createApplicationVersionAsync({
     ApplicationName: applicationName,
-    VersionLabel: versionLabel,
     Process: true,
     SourceBundle: {
       S3Bucket: this.config.bucket,
       S3Key: fileName,
     },
+    VersionLabel: versionLabel,
   });
 
   this.logger.log('New Application Version Created Successfully');
   this.logger.log('Updating Application Environment...');
 
-  await this.EB.updateEnvironmentAsync({
+  await EB.updateEnvironmentAsync({
     ApplicationName: applicationName,
     EnvironmentName: environmentName,
     VersionLabel: versionLabel,
@@ -71,14 +65,14 @@ export default async function deploy() {
   this.logger.log('Waiting for environment...');
 
   while (!updated) {
-    const response = await this.EB.describeEnvironmentsAsync({ // eslint-disable-line
+    const response = await EB.describeEnvironmentsAsync({
       EnvironmentNames: [environmentName],
     });
 
     if (response.Environments[0].Status === 'Ready') {
       updated = true;
     } else {
-      Promise.delay(5000);
+      IPromise.delay(5000);
     }
   }
 

@@ -29,10 +29,11 @@ custom:
   elastic-beanstalk:
     variables:
       applicationName: CartApplicationName
-      applicationEnvironmentName: CartApplicationEvironmentName
+      environmentName: CartApplicationEvironmentName
     key: ${opt:key}
     platform: nodejs
     script: scripts/configure.js
+    build:
 
 functions:
 ...

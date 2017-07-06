@@ -1,11 +1,6 @@
-import chai, { expect } from 'chai';
-import dirtyChai from 'dirty-chai';
-import sinonChai from 'sinon-chai';
-import sinon from 'sinon';
+import { expect } from 'chai';
+import * as sinon from 'sinon';
 import ElasticBeanstalk from './../../src';
-
-chai.use(dirtyChai);
-chai.use(sinonChai);
 
 describe('ElasticBeanstalk', () => {
   let eb;
@@ -15,8 +10,8 @@ describe('ElasticBeanstalk', () => {
     config: {
       servicePath: '',
     },
-    service: {},
     getProvider: sandbox.stub(),
+    service: {},
   };
 
   beforeEach(() => {
@@ -25,7 +20,7 @@ describe('ElasticBeanstalk', () => {
 
   it('new ElasticBeanstalk', () => {
     expect(eb).to.be.an.instanceOf(ElasticBeanstalk);
-    expect(eb.serverless.getProvider).to.have.been.called();
+    expect(eb.serverless.getProvider.called).to.equal(true);
     expect(eb.options).to.deep.equal({});
   });
 });
