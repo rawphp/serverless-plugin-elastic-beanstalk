@@ -11,6 +11,12 @@ describe('ElasticBeanstalkPlugin', () => {
   const sandbox = sinon.sandbox.create();
   let serverless;
 
+  const options = {
+    env: 'dev',
+    key: 'ec2-key',
+    region: 'eu-west-1',
+  };
+
   beforeEach(async () => {
     serverless = new Serverless({});
     serverless.config.update({ servicePath: fixturePath });
@@ -20,11 +26,11 @@ describe('ElasticBeanstalkPlugin', () => {
 
     await serverless.init();
 
-    plugin = new ElasticBeanstalkPlugin(serverless, {});
+    plugin = new ElasticBeanstalkPlugin(serverless, options);
   });
 
   it('new ElasticBeanstalk', () => {
     expect(plugin).to.be.an.instanceOf(ElasticBeanstalkPlugin);
-    expect(plugin.options).to.deep.equal({});
+    expect(plugin.options).to.deep.equal(options);
   });
 });
