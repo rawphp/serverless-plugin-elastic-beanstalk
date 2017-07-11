@@ -6,7 +6,9 @@ import ElasticBeanstalkPlugin from './../../src/ElasticBeanstalkPlugin';
 
 const fixturePath = path.resolve(`${process.cwd()}/test/fixture`);
 
-describe('ElasticBeanstalkPlugin', () => {
+describe('ElasticBeanstalkPlugin', function() {
+  this.timeout(5000);
+
   let plugin;
   const sandbox = sinon.sandbox.create();
   let serverless;
@@ -32,5 +34,5 @@ describe('ElasticBeanstalkPlugin', () => {
   it('new ElasticBeanstalk', () => {
     expect(plugin).to.be.an.instanceOf(ElasticBeanstalkPlugin);
     expect(plugin.options).to.deep.equal(options);
-  }).timeout(5000);
+  });
 });

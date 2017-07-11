@@ -10,7 +10,9 @@ import deploy from './../../../src/lib/deploy';
 
 const logger = console;
 
-describe('deploy', () => {
+describe('deploy', function() {
+  this.timeout(5000);
+
   const sandbox = sinon.sandbox.create();
   const fixturePath = path.resolve(`${process.cwd()}/test/fixture`);
 
@@ -97,5 +99,5 @@ describe('deploy', () => {
     expect(createApplicationVersionStub.calledOnce).to.equal(true);
     expect(updateEnvironmentStub.calledOnce).to.equal(true);
     expect(describeEnvironmentsStub.calledOnce).to.equal(true);
-  });
+  }).timeout(10000);
 });

@@ -8,7 +8,9 @@ import * as zipper from 'zip-unzip-promise';
 import getContext from '../../stubs/context';
 import { getElasticBeanstalkInstance, getS3Instance } from './../../../src/lib/AWS';
 
-describe('AWS', () => {
+describe('AWS', function() {
+  this.timeout(5000);
+
   const fixturePath = path.resolve(`${process.cwd()}/test/fixture`);
 
   describe('getElasticBeanstalkInstance', () => {

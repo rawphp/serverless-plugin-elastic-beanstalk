@@ -24,8 +24,6 @@ custom:
         - src/**
         - resources/schema/**
         - package.json
-        - ts-definition.json
-        - ts-env.json
 
 provider:
   name: aws
