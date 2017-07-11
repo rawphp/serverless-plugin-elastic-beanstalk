@@ -23,7 +23,7 @@ jobs:
         api_key: $NPM_API_KEY
         skip_cleanup: true
         on:
-          only: master
+          branch: master
           tags: true
           node: "7"
 
