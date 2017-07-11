@@ -18,15 +18,14 @@ import {
 export default class ElasticBeanstalkPlugin implements IElasticBeanstalk {
   private serverless: IServerless;
   private servicePath: string;
-  private options: any;
+  private options: IElasticBeanstalkOptions;
   private config: IPluginConfig;
   private logger: CLI;
   private service: any;
-  private provider: any;
   private tmpDir: string;
   private artifactTmpDir: string;
-  private commands: any;
-  private hooks: any;
+  private commands: IElasticBeanstalkCommands;
+  private hooks: IElasticBeanstalkHooks;
   private getS3Instance;
   private getElasticBeanstalkInstance;
 
@@ -42,7 +41,6 @@ export default class ElasticBeanstalkPlugin implements IElasticBeanstalk {
     this.servicePath = this.serverless.config.servicePath;
     this.logger = this.serverless.cli;
     this.service = this.serverless.service;
-    this.provider = serverless.getProvider('aws');
 
     this.tmpDir = path.join(this.servicePath, '/.serverless');
     this.artifactTmpDir = path.join(this.tmpDir, './artifacts');
