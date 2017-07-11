@@ -13,12 +13,17 @@ jobs:
         - yarn lint
         - yarn test
 
-    - stage: deploy
-      provider: npm
-      api_key: $NPM_API_KEY
-      script:
-        - yarn build
-        - npm publish .
+    - stage: release
+      deploy:
+        provider: npm
+        api_key: $NPM_API_KEY
+        skip_cleanup: true
+        script:
+          - yarn build
+          - npm publish .
+        on:
+          tags: true
+          node: "7"
 
 notifications:
   email:
