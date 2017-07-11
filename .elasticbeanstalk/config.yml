@@ -1,0 +1,20 @@
+branch-defaults:
+  master:
+    environment: app-environment-name
+environment-defaults:
+  app-environment-name:
+    branch: master
+    repository: null
+global:
+  application_name: app-name
+  branch: null
+  default_ec2_keyname: ec2-key
+  default_platform: 64bit Amazon Linux 2017.03 v4.1.0 running Node.js
+  default_region: eu-west-1
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: dev
+  repository: null
+  sc: git
+  workspace_type: Application

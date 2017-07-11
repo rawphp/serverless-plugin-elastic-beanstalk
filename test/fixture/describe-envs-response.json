@@ -1,0 +1,29 @@
+{
+  "ResponseMetadata": {
+    "RequestId": "07dcbb48-65e2-11e7-a2d0-3bea6a5ed968"
+  },
+  "Environments": [
+    {
+      "EnvironmentName": "prox-Prox-EJMRVSUYF473",
+      "EnvironmentId": "e-ypydtywbnk",
+      "ApplicationName": "app-name-dev",
+      "VersionLabel": "app-name-dev-1499740636",
+      "SolutionStackName": "64bit Amazon Linux 2017.03 v4.1.1 running Node.js",
+      "PlatformArn": "arn:aws:elasticbeanstalk:eu-west-1::platform/Node.js running on 64bit Amazon Linux/4.1.1",
+      "Description": "Mock Server Environment",
+      "EndpointURL": "awseb-e-y-AWSEBLoa-1OTMT3RZCQQET-659295223.eu-west-1.elb.amazonaws.com",
+      "CNAME": "prox-Prox-EJMRVSUYF473.t4bemkmt2z.eu-west-1.elasticbeanstalk.com",
+      "DateCreated": "2017-07-06T00:33:22.366Z",
+      "DateUpdated": "2017-07-11T02:38:32.542Z",
+      "Status": "Ready",
+      "AbortableOperationInProgress": false,
+      "Health": "Green",
+      "Tier": {
+        "Name": "WebServer",
+        "Type": "Standard",
+        "Version": ""
+      },
+      "EnvironmentLinks": []
+    }
+  ]
+}

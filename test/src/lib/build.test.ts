@@ -51,6 +51,8 @@ describe('build', () => {
     const artifactPath = `${context.artifactTmpDir}/bundle-${config.testAppApplicationName}-${context.config.version}.zip`;
     const extractPath = `${context.artifactTmpDir}/${config.testAppApplicationName}`;
 
+    process.chdir(`${__dirname}/../../../`);
+
     await context.build();
 
     expect(await fsp.exists(artifactPath)).to.equal(true);

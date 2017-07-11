@@ -60,4 +60,8 @@ export interface IElasticBeanstalk {
   defineHooks(): IElasticBeanstalkHooks;
 }
 
-export interface IElasticBeanstalkOptions { }
+export interface IElasticBeanstalkOptions {
+  env: string;
+  key: string;
+  region: string;
+}

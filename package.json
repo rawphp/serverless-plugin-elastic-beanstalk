@@ -10,7 +10,7 @@
     "prerelease": "yarn build && yarn version",
     "clear": "rm -rf dist",
     "watch": "npm-watch",
-    "lint": "eslint .",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "env TZ='UTC' NODE_ENV=test mocha --require ts-node/register test/src/*.test.ts test/src/**/*.test.ts"
   },
   "engines": {
@@ -74,6 +74,7 @@
     "typescript": "2.x.x",
     "typings": "2.x.x",
     "webpack": "2.x.x",
+    "yamljs": "^0.3.0",
     "zip-unzip-promise": "1.0.0"
   }
 }

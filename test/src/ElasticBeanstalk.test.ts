@@ -6,7 +6,7 @@ import ElasticBeanstalkPlugin from './../../src/ElasticBeanstalkPlugin';
 
 const fixturePath = path.resolve(`${process.cwd()}/test/fixture`);
 
-describe.only('ElasticBeanstalkPlugin', () => {
+describe('ElasticBeanstalkPlugin', () => {
   let plugin;
   const sandbox = sinon.sandbox.create();
   let serverless;

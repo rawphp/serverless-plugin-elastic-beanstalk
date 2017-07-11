@@ -29,11 +29,11 @@ export default async function deploy() {
 
   this.logger.log('Uploading Application Bundle to S3...');
 
-  await S3.uploadAsync({
+  this.logger.log(JSON.stringify(await S3.uploadAsync({
     Body: fsp.createReadStream(bundlePath),
     Bucket: this.config.bucket,
     Key: fileName,
-  });
+  })));
 
   this.logger.log('Application Bundle Uploaded to S3 Successfully');
 
@@ -41,7 +41,7 @@ export default async function deploy() {
 
   this.logger.log('Creating New Application Version...');
 
-  await EB.createApplicationVersionAsync({
+  this.logger.log(JSON.stringify(await EB.createApplicationVersionAsync({
     ApplicationName: applicationName,
     Process: true,
     SourceBundle: {
@@ -49,16 +49,16 @@ export default async function deploy() {
       S3Key: fileName,
     },
     VersionLabel: versionLabel,
-  });
+  })));
 
   this.logger.log('New Application Version Created Successfully');
   this.logger.log('Updating Application Environment...');
 
-  await EB.updateEnvironmentAsync({
+  this.logger.log(JSON.stringify(await EB.updateEnvironmentAsync({
     ApplicationName: applicationName,
     EnvironmentName: environmentName,
     VersionLabel: versionLabel,
-  });
+  })));
 
   let updated = false;
 
@@ -68,6 +68,8 @@ export default async function deploy() {
     const response = await EB.describeEnvironmentsAsync({
       EnvironmentNames: [environmentName],
     });
+
+    this.logger.log(JSON.stringify(response));
 
     if (response.Environments[0].Status === 'Ready') {
       updated = true;

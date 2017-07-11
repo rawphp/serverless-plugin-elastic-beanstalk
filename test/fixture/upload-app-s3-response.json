@@ -1,0 +1,6 @@
+{
+  "Location": "https://app-name-dev.s3-eu-west-1.amazonaws.com/bundle-app-name-dev-1499740253.zip",
+  "Bucket": "app-name-dev",
+  "Key": "bundle-app-name-dev-1499740253.zip",
+  "ETag": "\"f4c1feec6a89b9dfd8ceaf863be5281f-3\""
+}
