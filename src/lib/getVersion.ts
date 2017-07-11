@@ -1,5 +1,3 @@
-import * as Moment from 'moment';
-
 /**
  * Get version from config.
  *
@@ -9,7 +7,7 @@ import * as Moment from 'moment';
  */
 export default function getVersion(version: string): string {
   if (version === 'latest') {
-    return Moment().unix().toString();
+    return Math.floor(this.valueOf() / 1000).toString();
   }
 
   return version;
