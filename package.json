@@ -67,14 +67,14 @@
     "eslint-plugin-react": "6.x.x",
     "eslint-plugin-require-jsdoc": "1.x.x",
     "mocha": "3.x.x",
-    "serverless": "1.x.x",
+    "serverless": "1.11.0",
     "sinon": "1.x.x",
     "ts-node": "3.x.x",
     "tslint": "5.x.x",
     "typescript": "2.x.x",
     "typings": "2.x.x",
     "webpack": "2.x.x",
-    "yamljs": "^0.3.0",
+    "yamljs": "0.x.x",
     "zip-unzip-promise": "1.0.0"
   }
 }

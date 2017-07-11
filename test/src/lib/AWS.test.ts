@@ -28,7 +28,7 @@ describe('AWS', () => {
       const eb = getElasticBeanstalkInstance(serverless, 'eu-west-1');
 
       expect(eb instanceof AWS.ElasticBeanstalk);
-    });
+    }).timeout(5000);
   });
 
   describe('S3', () => {
@@ -48,6 +48,6 @@ describe('AWS', () => {
       const eb = getS3Instance(serverless, 'eu-west-1');
 
       expect(eb instanceof AWS.S3);
-    });
+    }).timeout(5000);
   });
 });

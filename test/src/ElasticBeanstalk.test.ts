@@ -32,5 +32,5 @@ describe('ElasticBeanstalkPlugin', () => {
   it('new ElasticBeanstalk', () => {
     expect(plugin).to.be.an.instanceOf(ElasticBeanstalkPlugin);
     expect(plugin.options).to.deep.equal(options);
-  });
+  }).timeout(5000);
 });
