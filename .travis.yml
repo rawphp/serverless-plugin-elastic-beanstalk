@@ -14,13 +14,14 @@ jobs:
         - yarn test
 
     - stage: release
+      node_js: "7"
+      script:
+        - yarn build
+        # - npm publish .
       deploy:
         provider: npm
         api_key: $NPM_API_KEY
         skip_cleanup: true
-        script:
-          - yarn build
-          - npm publish .
         on:
           tags: true
           node: "7"
