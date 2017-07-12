@@ -19,6 +19,7 @@ deploy:
   script: npm publish .
   on:
     tags: true
+    node: '7'
 
 notifications:
   email:
