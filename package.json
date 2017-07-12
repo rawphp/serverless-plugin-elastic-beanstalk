@@ -5,13 +5,13 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "prebuild": "yarn clear",
-    "build": "babel src --out-dir dist",
+    "prebuild": "yarn run clear",
+    "build": "tsc",
     "prerelease": "yarn build && yarn version",
     "clear": "rm -rf dist",
     "watch": "npm-watch",
-    "lint": "eslint .",
-    "test": "env TZ='UTC' NODE_ENV=test mocha test --compilers js:babel-core/register --require babel-polyfill --recursive"
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "test": "env TZ='UTC' NODE_ENV=test mocha --require ts-node/register test/src/*.test.ts test/src/**/*.test.ts"
   },
   "engines": {
     "node": ">=6.10"
@@ -31,18 +31,17 @@
   ],
   "dependencies": {
     "aws-sdk": "2.x.x",
-    "babel-polyfill": "6.x.x",
     "bluebird": "3.x.x",
     "bundle-bundler": "0.x.x",
-    "chalk": "1.x.x",
-    "child-process-promise": "2.x.x",
-    "fs-promise": "2.x.x",
-    "lodash": "4.x.x",
-    "moment": "2.x.x",
-    "source-map-support": "0.x.x"
+    "fs-promise": "2.x.x"
   },
   "devDependencies": {
+    "@types/bluebird": "3.x.x",
+    "@types/chai": "4.x.x",
+    "@types/fs-promise": "1.x.x",
+    "@types/mocha": "2.x.x",
     "@types/node": "7.x.x",
+    "awesome-typescript-loader": "3.x.x",
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
     "babel-eslint": "7.x.x",
@@ -50,40 +49,16 @@
     "babel-preset-env": "1.x.x",
     "babel-preset-stage-3": "6.x.x",
     "chai": "3.x.x",
-    "dirty-chai": "1.x.x",
     "esdoc": "0.x.x",
     "esdoc-es7-plugin": "0.x.x",
-    "eslint": "3.x.x",
-    "eslint-config-airbnb": "14.x.x",
-    "eslint-plugin-import": "2.x.x",
-    "eslint-plugin-jsx-a11y": "4.x.x",
-    "eslint-plugin-react": "6.x.x",
-    "eslint-plugin-require-jsdoc": "1.x.x",
     "mocha": "3.x.x",
-    "npm-watch": "0.x.x",
+    "serverless": "1.13.0",
     "sinon": "1.x.x",
-    "sinon-chai": "2.x.x",
-    "webpack": "2.x.x"
-  },
-  "watch": {
-    "build": {
-      "patterns": [
-        "."
-      ],
-      "extensions": [
-        "js",
-        "json"
-      ],
-      "ignore": "dist/"
-    },
-    "test": {
-      "patterns": [
-        "src",
-        "test"
-      ],
-      "extensions": "js",
-      "ignore": "",
-      "quiet": true
-    }
+    "ts-node": "3.x.x",
+    "tslint": "5.x.x",
+    "typescript": "2.x.x",
+    "webpack": "2.x.x",
+    "yamljs": "0.x.x",
+    "zip-unzip-promise": "1.0.0"
   }
 }

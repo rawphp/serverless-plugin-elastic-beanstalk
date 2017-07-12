@@ -1,0 +1,16 @@
+{
+  "ResponseMetadata": {
+    "RequestId": "1acda101-65e1-11e7-b532-93585e5f184b"
+  },
+  "ApplicationVersion": {
+    "ApplicationName": "app-name-dev",
+    "VersionLabel": "app-name-dev-1499740253",
+    "SourceBundle": {
+      "S3Bucket": "app-name-dev",
+      "S3Key": "bundle-app-name-dev-1499740253.zip"
+    },
+    "DateCreated": "2017-07-11T02:31:55.176Z",
+    "DateUpdated": "2017-07-11T02:31:55.176Z",
+    "Status": "PROCESSING"
+  }
+}

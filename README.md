@@ -7,7 +7,6 @@ A serverless plugin to deploy applications to AWS ElasticBeanstalk.
 ## Dependencies
 
 * This plugin is dependent on the output of [Stack Config Plugin for Serverless](https://www.npmjs.com/package/serverless-plugin-stack-config)
-* This plugin is also dependent on [AWS EB Cli](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html) being installed on the system
 
 ## Features
 
@@ -29,10 +28,18 @@ custom:
   elastic-beanstalk:
     variables:
       applicationName: CartApplicationName
-      applicationEnvironmentName: CartApplicationEvironmentName
+      environmentName: CartApplicationEvironmentName
     key: ${opt:key}
     platform: nodejs
     script: scripts/configure.js
+    build:
+      babel: true
+      sourceMaps: true
+      include:
+        - .ebextensions/**
+        - src/**
+        - resources/schema/**
+        - package.json
 
 functions:
 ...

@@ -1,15 +1,25 @@
 language: node_js
 
-node_js:
-    - "6"
-    - "7"
+node_js: ['6', '7', '8']
 
-sudo: false
+install:
+- yarn install
 
 script:
-    - yarn lint
-    - yarn test
+- yarn lint
+- yarn build
+- yarn test
+
+before_deploy:
+- echo "//registry.npmjs.org/:_authToken=\${NPM_API_KEY}" > ~/.npmrc
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: npm publish .
+  on:
+    tags: true
 
 notifications:
-    email:
-        tom@x-c-o-d-e.com
+  email:
+    tom@x-c-o-d-e.com

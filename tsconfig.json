@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "allowJs": true,
+    "module": "commonjs",
+    "target": "es6",
+    "watch": false,
+    "lib": [
+      "es2015"
+    ]
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
