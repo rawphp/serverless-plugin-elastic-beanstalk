@@ -12,6 +12,12 @@ A serverless plugin to deploy applications to AWS ElasticBeanstalk.
 
 * `elastic-beanstalk` - This uploads an ElasticBeanstalk application.
 
+## Install
+
+```shell
+npm install --save serverless-plugin-elastic-beanstalk
+```
+
 ## Usage
 
 Add the plugin to your `serverless.yml` like the following:
