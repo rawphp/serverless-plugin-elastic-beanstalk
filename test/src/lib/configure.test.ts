@@ -49,7 +49,7 @@ describe('configure', () => {
     expect(obj.global.application_name).to.equal('app-name');
     expect(obj.global.branch).to.equal(null);
     expect(obj.global.default_ec2_keyname).to.equal('ec2-key');
-    expect(obj.global.default_platform).to.equal('64bit Amazon Linux 2017.03 v4.1.0 running Node.js');
+    expect(obj.global.default_platform).to.equal('64bit Amazon Linux 2017.03 v4.2.0 running Node.js');
     expect(obj.global.default_region).to.equal('eu-west-1');
     expect(obj.global.instance_profile).to.equal(null);
     expect(obj.global.platform_name).to.equal(null);
