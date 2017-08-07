@@ -60,6 +60,7 @@ describe('deploy', function() {
   const uploadStub = sandbox.stub(S3, 'uploadAsync');
   const createApplicationVersionStub = sandbox.stub(EB, 'createApplicationVersionAsync');
   const updateEnvironmentStub = sandbox.stub(EB, 'updateEnvironmentAsync');
+  const describeApplicationVersionsStub = sandbox.stub(EB, 'describeApplicationVersionsAsync');
   const describeEnvironmentsStub = sandbox.stub(EB, 'describeEnvironmentsAsync');
 
   beforeEach(async () => {
@@ -91,6 +92,7 @@ describe('deploy', function() {
     uploadStub.returns(await fsp.readJson(`${fixturePath}/upload-app-s3-response.json`));
     createApplicationVersionStub.returns(await fsp.readJson(`${fixturePath}/create-eb-app-version-response.json`));
     updateEnvironmentStub.returns(await fsp.readJson(`${fixturePath}/update-env-response.json`));
+    describeApplicationVersionsStub.returns(await fsp.readJson(`${fixturePath}/describe-app-versions-response.json`));
     describeEnvironmentsStub.returns(await fsp.readJson(`${fixturePath}/describe-envs-response.json`));
 
     await context.deploy();

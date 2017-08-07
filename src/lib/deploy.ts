@@ -1,4 +1,4 @@
-import * as IPromise from 'bluebird';
+import * as BPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
 import { IEB, IS3 } from '../types';
@@ -51,6 +51,24 @@ export default async function deploy() {
     VersionLabel: versionLabel,
   })));
 
+  this.logger.log('Waiting for application version...');
+
+  let updated = false;
+
+  while (!updated) {
+    const response = await EB.describeApplicationVersionsAsync({
+      VersionLabels: [versionLabel],
+    });
+
+    this.logger.log(JSON.stringify(response));
+
+    if (response.ApplicationVersions[0].Status === 'PROCESSED') {
+      updated = true;
+    } else {
+      await BPromise.delay(5000);
+    }
+  }
+
   this.logger.log('New Application Version Created Successfully');
   this.logger.log('Updating Application Environment...');
 
@@ -60,9 +78,9 @@ export default async function deploy() {
     VersionLabel: versionLabel,
   })));
 
-  let updated = false;
-
   this.logger.log('Waiting for environment...');
+
+  updated = false;
 
   while (!updated) {
     const response = await EB.describeEnvironmentsAsync({
@@ -74,7 +92,7 @@ export default async function deploy() {
     if (response.Environments[0].Status === 'Ready') {
       updated = true;
     } else {
-      IPromise.delay(5000);
+      await BPromise.delay(5000);
     }
   }
 

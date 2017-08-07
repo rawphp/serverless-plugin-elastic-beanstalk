@@ -1,0 +1,18 @@
+{
+  "ResponseMetadata": {
+    "RequestId": "273205b2-7b02-11e7-b133-43b3f92a6e4b"
+  },
+  "ApplicationVersions": [
+    {
+      "ApplicationName": "track-service",
+      "VersionLabel": "app-name-dev-1499740253",
+      "SourceBundle": {
+        "S3Bucket": "app-name-dev",
+        "S3Key": "bundle-track-service-1499740253.zip"
+      },
+      "DateCreated": "2017-08-06T23:51:15.650Z",
+      "DateUpdated": "2017-08-06T23:51:15.650Z",
+      "Status": "PROCESSED"
+    }
+  ]
+}
