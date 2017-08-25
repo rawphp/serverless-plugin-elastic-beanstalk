@@ -32,6 +32,10 @@ describe('deploy', function() {
     artifactTmpDir: `${rootDir}/.artifacts`,
     config: {
       bucket: 'test-bucket',
+      file: {
+        prefix: 'bundles',
+        file: 'bundle-latest.zip',
+      },
       build: {
         babel: true,
         include: [

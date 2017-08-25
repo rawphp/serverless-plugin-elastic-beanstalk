@@ -1,7 +1,7 @@
 import * as BPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
-import { IEB, IS3 } from '../types';
+import { IEB, IPluginConfig, IS3 } from '../types';
 import getVersion from './getVersion';
 
 /**
@@ -14,13 +14,22 @@ export default async function deploy() {
 
   const configPath = `${process.cwd()}/.serverless/stack-config.json`;
 
-  const config = await fsp.readJson(configPath);
-  this.config.version = getVersion(this.config.version);
+  const ebConfig: IPluginConfig = this.config;
 
-  const applicationName = config[this.config.variables.applicationName];
-  const environmentName = config[this.config.variables.environmentName];
-  const versionLabel = `${applicationName}-${this.config.version}`;
-  const fileName = `bundle-${versionLabel}.zip`;
+  const config = await fsp.readJson(configPath);
+  ebConfig.version = getVersion(ebConfig.version);
+
+  const applicationName = config[ebConfig.variables.applicationName];
+  const environmentName = config[ebConfig.variables.environmentName];
+  const versionLabel = `${applicationName}-${ebConfig.version}`;
+
+  let fileName = '';
+
+  if (ebConfig.file) {
+    fileName = ebConfig.file.prefix ? `${ebConfig.file.prefix}/` : '';
+    fileName = ebConfig.file.name ? `${ebConfig.file.name}` : `bundle-${versionLabel}.zip`;
+  }
+
   const bundlePath = path.resolve(this.artifactTmpDir, fileName);
 
   process.env.PATH = `/root/.local/bin:${process.env.PATH}`;
@@ -31,7 +40,7 @@ export default async function deploy() {
 
   this.logger.log(JSON.stringify(await S3.uploadAsync({
     Body: fsp.createReadStream(bundlePath),
-    Bucket: this.config.bucket,
+    Bucket: ebConfig.bucket,
     Key: fileName,
   })));
 
@@ -45,7 +54,7 @@ export default async function deploy() {
     ApplicationName: applicationName,
     Process: true,
     SourceBundle: {
-      S3Bucket: this.config.bucket,
+      S3Bucket: ebConfig.bucket,
       S3Key: fileName,
     },
     VersionLabel: versionLabel,

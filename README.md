@@ -36,6 +36,9 @@ custom:
       applicationName: CartApplicationName
       environmentName: CartApplicationEvironmentName
     key: ${opt:key}
+    file:
+      prefix: bundles
+      name: bundle-latest.zip
     platform: nodejs
     script: scripts/configure.js
     build:

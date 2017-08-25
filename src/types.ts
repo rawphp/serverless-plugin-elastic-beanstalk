@@ -34,6 +34,10 @@ export interface IPluginConfig {
   key: string;
   platform: string;
   bucket: string;
+  file?: {
+    prefix: string;
+    name: string;
+  };
   version: string;
   build: IBuildConfig;
 }

@@ -10,17 +10,17 @@ import { IEB, IS3 } from "../types";
  * @see http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html
  */
 const platforms = {
-  go: '64bit Amazon Linux 2017.03 v2.4.2 running Go 1.7',
-  java8SE: '64bit Amazon Linux 2017.03 v2.5.1 running Java 8',
-  java8Tomcat8: '64bit Amazon Linux 2017.03 v2.6.1 running Tomcat 8 Java 8',
-  multiContainerDocker: '64bit Amazon Linux 2017.03 v2.7.1 running Multi-container Docker 17.03.1-ce (Generic)',
+  go: '64bit Amazon Linux 2017.03 v2.5.1 running Go 1.8',
+  java8SE: '64bit Amazon Linux 2017.03 v2.5.3 running Java 8',
+  java8Tomcat8: '64bit Amazon Linux 2017.03 v2.6.3 running Tomcat 8 Java 8',
+  multiContainerDocker: '64bit Amazon Linux 2017.03 v2.7.3 running Multi-container Docker 17.03.1-ce (Generic)',
   netIIS85: '64bit Windows Server 2016 v1.2.0 running IIS 10.0',
-  nodejs: '64bit Amazon Linux 2017.03 v4.2.0 running Node.js',
-  packer: '64bit Amazon Linux 2017.03 v2.2.2 running Packer 1.0.0',
-  php70: '64bit Amazon Linux 2017.03 v2.4.1 running PHP 7.0',
-  python34: '64bit Amazon Linux 2017.03 v2.4.1 running Python 3.4',
-  ruby23: '64bit Amazon Linux 2017.03 v2.4.1 running Ruby 2.3 (Puma)',
-  singleContainerDocker: '64bit Amazon Linux 2017.03 v2.7.0 running Docker 17.03.1-ce',
+  nodejs: '64bit Amazon Linux 2017.03 v4.2.1 running Node.js',
+  packer: '64bit Amazon Linux 2017.03 v2.3.1 running Packer 1.0.3',
+  php70: '64bit Amazon Linux 2017.03 v2.4.3 running PHP 7.0',
+  python34: '64bit Amazon Linux 2017.03 v2.5.0 running Python 3.4',
+  ruby23: '64bit Amazon Linux 2017.03 v2.4.3 running Ruby 2.3 (Puma)',
+  singleContainerDocker: '64bit Amazon Linux 2017.03 v2.7.2 running Docker 17.03.1-ce',
 };
 
 /**

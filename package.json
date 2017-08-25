@@ -11,7 +11,8 @@
     "clear": "rm -rf dist",
     "watch": "npm-watch",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "test": "env TZ='UTC' NODE_ENV=test mocha --require ts-node/register test/src/*.test.ts test/src/**/*.test.ts"
+    "test": "env TZ='UTC' NODE_ENV=test mocha --require ts-node/register test/src/*.test.ts test/src/**/*.test.ts",
+    "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
   },
   "engines": {
     "node": ">=6.10"
@@ -49,6 +50,7 @@
     "babel-preset-env": "1.x.x",
     "babel-preset-stage-3": "6.x.x",
     "chai": "3.x.x",
+    "changelog-verify": "1.x.x",
     "esdoc": "0.x.x",
     "esdoc-es7-plugin": "0.x.x",
     "mocha": "3.x.x",
@@ -57,6 +59,7 @@
     "ts-node": "3.x.x",
     "tslint": "5.x.x",
     "typescript": "2.x.x",
+    "version-changelog": "2.x.x",
     "webpack": "2.x.x",
     "yamljs": "0.x.x",
     "zip-unzip-promise": "1.0.0"
