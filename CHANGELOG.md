@@ -2,6 +2,9 @@
 
 ## [Unreleased][]
 
+### Updated
+ * Updated dependencies
+
 ## [1.2.2][] - 2017-08-26
 
 ### Fixed
