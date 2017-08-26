@@ -2,6 +2,9 @@
 
 ## [Unreleased][]
 
+### Fixed
+ * Fixed default bundle name
+
 ## [1.2.1][] - 2017-08-26
 
 ### Fixed

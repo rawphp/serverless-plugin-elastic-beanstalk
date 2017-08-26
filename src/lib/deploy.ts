@@ -23,11 +23,11 @@ export default async function deploy() {
   const environmentName = config[ebConfig.variables.environmentName];
   const versionLabel = `${applicationName}-${ebConfig.version}`;
 
-  let fileName = '';
+  let fileName = `bundle-${versionLabel}.zip`;
 
   if (ebConfig.file) {
     fileName = ebConfig.file.prefix ? `${ebConfig.file.prefix}/` : '';
-    fileName = ebConfig.file.name ? `${ebConfig.file.name}` : `bundle-${versionLabel}.zip`;
+    fileName += ebConfig.file.name ? `${ebConfig.file.name}` : `bundle-${versionLabel}.zip`;
   }
 
   const bundlePath = path.resolve(this.artifactTmpDir, `bundle-${versionLabel}.zip`);
