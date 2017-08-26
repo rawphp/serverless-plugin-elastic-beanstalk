@@ -2,6 +2,9 @@
 
 ## [Unreleased][]
 
+### Fixed
+ * Bundle source path
+
 ## [1.2.0][] - 2017-08-26
 
 ### Feature

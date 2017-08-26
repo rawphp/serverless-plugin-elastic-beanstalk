@@ -30,7 +30,7 @@ export default async function deploy() {
     fileName = ebConfig.file.name ? `${ebConfig.file.name}` : `bundle-${versionLabel}.zip`;
   }
 
-  const bundlePath = path.resolve(this.artifactTmpDir, fileName);
+  const bundlePath = path.resolve(this.artifactTmpDir, `bundle-${versionLabel}.zip`);
 
   process.env.PATH = `/root/.local/bin:${process.env.PATH}`;
 
