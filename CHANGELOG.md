@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [1.4.0][] - 2018-03-01
+
 ### Added
 
 * Added a handler for `FAILED` application creation. Previous behaviour would wait indefinitely if the creation failed. Now it throws an error.
@@ -39,7 +41,8 @@
 * Updated dependencies
 * Updated AWS ElasticBeanstalk platform versions
 
-[Unreleased]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.2.2...v1.3.0
 [1.2.2]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.2.0...v1.2.1
