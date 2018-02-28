@@ -38,11 +38,15 @@ export default async function deploy() {
 
   this.logger.log('Uploading Application Bundle to S3...');
 
-  this.logger.log(JSON.stringify(await S3.uploadAsync({
-    Body: fsp.createReadStream(bundlePath),
-    Bucket: ebConfig.bucket,
-    Key: fileName,
-  })));
+  this.logger.log(
+    JSON.stringify(
+      await S3.uploadAsync({
+        Body: fsp.createReadStream(bundlePath),
+        Bucket: ebConfig.bucket,
+        Key: fileName,
+      }),
+    ),
+  );
 
   this.logger.log('Application Bundle Uploaded to S3 Successfully');
 
@@ -50,15 +54,19 @@ export default async function deploy() {
 
   this.logger.log('Creating New Application Version...');
 
-  this.logger.log(JSON.stringify(await EB.createApplicationVersionAsync({
-    ApplicationName: applicationName,
-    Process: true,
-    SourceBundle: {
-      S3Bucket: ebConfig.bucket,
-      S3Key: fileName,
-    },
-    VersionLabel: versionLabel,
-  })));
+  this.logger.log(
+    JSON.stringify(
+      await EB.createApplicationVersionAsync({
+        ApplicationName: applicationName,
+        Process: true,
+        SourceBundle: {
+          S3Bucket: ebConfig.bucket,
+          S3Key: fileName,
+        },
+        VersionLabel: versionLabel,
+      }),
+    ),
+  );
 
   this.logger.log('Waiting for application version...');
 
@@ -73,6 +81,8 @@ export default async function deploy() {
 
     if (response.ApplicationVersions[0].Status === 'PROCESSED') {
       updated = true;
+    } else if (response.ApplicationVersions[0].Status === 'FAILED') {
+      throw new Error('Creating Application Version Failed');
     } else {
       await BPromise.delay(5000);
     }
@@ -81,11 +91,15 @@ export default async function deploy() {
   this.logger.log('New Application Version Created Successfully');
   this.logger.log('Updating Application Environment...');
 
-  this.logger.log(JSON.stringify(await EB.updateEnvironmentAsync({
-    ApplicationName: applicationName,
-    EnvironmentName: environmentName,
-    VersionLabel: versionLabel,
-  })));
+  this.logger.log(
+    JSON.stringify(
+      await EB.updateEnvironmentAsync({
+        ApplicationName: applicationName,
+        EnvironmentName: environmentName,
+        VersionLabel: versionLabel,
+      }),
+    ),
+  );
 
   this.logger.log('Waiting for environment...');
 

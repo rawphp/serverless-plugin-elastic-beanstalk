@@ -23,6 +23,7 @@ npm install --save serverless-plugin-elastic-beanstalk
 Add the plugin to your `serverless.yml` like the following:
 
 ### serverless.yml:
+
 ```yaml
 provider:
 ...
@@ -65,7 +66,7 @@ resources:
         ApplicationName:
           Ref: CartApplication
         Description: Cart environment
-        SolutionStackName: '64bit Amazon Linux 2017.03 v4.1.0 running Node.js'
+        SolutionStackName: '64bit Amazon Linux 2017.03 v4.4.5 running Node.js'
         OptionSettings:
         - Namespace: aws:elasticbeanstalk:container:nodejs
           OptionName: NodeVersion
@@ -89,6 +90,7 @@ resources:
 **NOTE:** If providing a custom script, that script must be exported from the module using `module.exports`.
 
 ### shell command:
+
 ```shell
 serverless elastic-beanstalk --stage dev --region eu-west-1 --key ec2-key
 ```

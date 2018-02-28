@@ -2,29 +2,42 @@
 
 ## [Unreleased][]
 
+### Added
+
+* Added a handler for `FAILED` application creation. Previous behaviour would wait indefinitely if the creation failed. Now it throws an error.
+
+### Updated
+
+* Updated AWS ElasticBeanstalk platform versions to latest versions
+
 ## [1.3.0][] - 2017-08-27
 
 ### Updated
- * Updated dependencies
+
+* Updated dependencies
 
 ## [1.2.2][] - 2017-08-26
 
 ### Fixed
- * Fixed default bundle name
+
+* Fixed default bundle name
 
 ## [1.2.1][] - 2017-08-26
 
 ### Fixed
- * Bundle source path
+
+* Bundle source path
 
 ## [1.2.0][] - 2017-08-26
 
 ### Feature
- * Added optional `file` config property to `IPluginConfig` to allow custom names and/or adding a prefix
-### Updated
- * Updated dependencies
- * Updated AWS ElasticBeanstalk platform versions
 
+* Added optional `file` config property to `IPluginConfig` to allow custom names and/or adding a prefix
+
+### Updated
+
+* Updated dependencies
+* Updated AWS ElasticBeanstalk platform versions
 
 [Unreleased]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.3.0...HEAD
 [1.3.0]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.2.2...v1.3.0

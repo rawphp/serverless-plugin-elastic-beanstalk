@@ -20,13 +20,9 @@ describe('deploy', function() {
   const ebDir = `${process.cwd()}/.elasticbeanstalk`;
   let serverless;
 
-  const S3 = BPromise.promisifyAll(
-    new AWS.S3({ region: 'eu-west-1', apiVersion: '2006-03-01' }),
-  );
+  const S3 = BPromise.promisifyAll(new AWS.S3({ region: 'eu-west-1', apiVersion: '2006-03-01' }));
 
-  const EB = BPromise.promisifyAll(
-    new AWS.ElasticBeanstalk({ region: 'eu-west-1' }),
-  );
+  const EB = BPromise.promisifyAll(new AWS.ElasticBeanstalk({ region: 'eu-west-1' }));
 
   const context: any = {
     artifactTmpDir: `${rootDir}/.artifacts`,
@@ -38,9 +34,7 @@ describe('deploy', function() {
       },
       build: {
         babel: true,
-        include: [
-          'test/fixture/es6-sample-project/src/js/**',
-        ],
+        include: ['test/fixture/es6-sample-project/src/js/**'],
         sourceMaps: true,
       },
       platform: 'nodejs',
@@ -105,5 +99,24 @@ describe('deploy', function() {
     expect(createApplicationVersionStub.calledOnce).to.equal(true);
     expect(updateEnvironmentStub.calledOnce).to.equal(true);
     expect(describeEnvironmentsStub.calledOnce).to.equal(true);
+  }).timeout(10000);
+
+  it('fails to deploy the application', async () => {
+    uploadStub.returns(await fsp.readJson(`${fixturePath}/upload-app-s3-response.json`));
+    createApplicationVersionStub.returns(await fsp.readJson(`${fixturePath}/create-eb-app-version-response.json`));
+    describeApplicationVersionsStub.returns(
+      await fsp.readJson(`${fixturePath}/describe-app-versions-failed-response.json`),
+    );
+
+    try {
+      await context.deploy();
+    } catch (error) {
+      // console.log(error);
+    }
+
+    expect(uploadStub.calledOnce).to.equal(true);
+    expect(createApplicationVersionStub.calledOnce).to.equal(true);
+    expect(updateEnvironmentStub.called).to.equal(false);
+    expect(describeEnvironmentsStub.called).to.equal(false);
   }).timeout(10000);
 });
