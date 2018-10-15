@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Updated
+
+* Filter the S3 methods to remove repeated promise.
+
 ## [1.4.0][] - 2018-03-01
 
 ### Added
