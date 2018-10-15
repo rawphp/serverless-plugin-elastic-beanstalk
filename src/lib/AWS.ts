@@ -1,6 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const BPromise = require("bluebird");
+import * as BPromise from 'bluebird';
+import { IEB, IS3, IServerless } from "../types";
+
 /**
  * Get S3 instance.
  *
@@ -9,13 +9,14 @@ const BPromise = require("bluebird");
  *
  * @returns {IS3} S3 instance
  */
-function getS3Instance(serverless, region) {
-    const provider = serverless.getProvider(serverless.service.provider.name);
-    return BPromise.promisifyAll(new provider.sdk.S3({ region, apiVersion: '2006-03-01' }), {
-      filter: name => ['upload'].includes(name),
-    });
+export function getS3Instance(serverless: IServerless, region: string): IS3 {
+  const provider = serverless.getProvider(serverless.service.provider.name);
+
+  return BPromise.promisifyAll(new provider.sdk.S3({ region, apiVersion: '2006-03-01' }), {
+    filter: name => ['upload'].includes(name),
+  });
 }
-exports.getS3Instance = getS3Instance;
+
 /**
  * Get ElasticBeanstalk instance.
  *
@@ -24,10 +25,10 @@ exports.getS3Instance = getS3Instance;
  *
  * @returns {IEB} elastic beanstalk instance
  */
-function getElasticBeanstalkInstance(serverless, region) {
-    const provider = serverless.getProvider(serverless.service.provider.name);
-    return BPromise.promisifyAll(new provider.sdk.ElasticBeanstalk({ region, apiVersion: '2010-12-01' }), {
-      filter: name => ['createApplicationVersion', 'describeApplicationVersions', 'updateEnvironment', 'describeEnvironments'].includes(name),
+export function getElasticBeanstalkInstance(serverless: IServerless, region: string): IEB {
+  const provider = serverless.getProvider(serverless.service.provider.name);
+
+  return BPromise.promisifyAll(new provider.sdk.ElasticBeanstalk({ region, apiVersion: '2010-12-01' }), {
+    filter: name => ['createApplicationVersion', 'describeApplicationVersions', 'updateEnvironment', 'describeEnvironments'].includes(name),
   });
 }
-exports.getElasticBeanstalkInstance = getElasticBeanstalkInstance;
