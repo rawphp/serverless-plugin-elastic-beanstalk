@@ -7,17 +7,6 @@ export interface IServerless {
   getProvider(type: string): any;
 }
 
-export interface IS3 {
-  uploadAsync(params: any): Promise<any>;
-}
-
-export interface IEB {
-  createApplicationVersionAsync(params: any): Promise<any>;
-  describeApplicationVersionsAsync(params: any): Promise<any>;
-  updateEnvironmentAsync(params: any): Promise<any>;
-  describeEnvironmentsAsync(params: any): Promise<any>;
-}
-
 export interface IBuildConfig {
   babel?: boolean;
   sourceMaps?: boolean;

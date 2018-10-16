@@ -2,7 +2,7 @@ import * as BPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
 import CLI from 'serverless/lib/classes/CLI';
-import { IEB, IS3 } from "../types";
+import { ElasticBeanstalk, S3 } from "aws-sdk";
 
 /**
  * List of supported platforms.
@@ -65,13 +65,13 @@ async function createEBConfig(config: any, logger: CLI): Promise<void> {
 /**
  * Configure docker run configuration file.
  *
- * @param {IS3}    S3     s3 instance
+ * @param {S3}    S3     s3 instance
  * @param {Object} config config object
  * @param {Object} logger logger instance
  *
  * @returns {undefined}
  */
-async function configureDockerRun(S3: IS3, config: any, logger: CLI): Promise<void> {
+async function configureDockerRun(S3: S3, config: any, logger: CLI): Promise<void> {
   const dockerRunFile = `${process.cwd()}/Dockerrun.aws.json`;
   const runtimeDockerRunFile = `${process.cwd()}/.serverless/Dockerrun.aws.json`;
 
@@ -91,11 +91,11 @@ async function configureDockerRun(S3: IS3, config: any, logger: CLI): Promise<vo
   try {
     await fsp.writeFile(runtimeDockerRunFile, content);
 
-    await S3.uploadAsync({
+    await S3.upload({
       Body: content,
       Bucket: config.bucketName,
       Key: 'Dockerrun.aws.json',
-    });
+    }).promise();
   } catch (error) {
     logger.log(error);
   }
@@ -104,13 +104,13 @@ async function configureDockerRun(S3: IS3, config: any, logger: CLI): Promise<vo
 /**
  * Create a new application version.
  *
- * @param {IEB}    EB     elastic beanstalk instance
+ * @param {ElasticBeanstalk}    EB     elastic beanstalk instance
  * @param {Object} params update environment parameters
  *
  * @returns {Object} update environment response
  */
-async function deployApplicationVersion(EB: IEB, params: any): Promise<any> {
-  return EB.createApplicationVersionAsync(params);
+async function deployApplicationVersion(EB: ElasticBeanstalk, params: any): Promise<any> {
+  return EB.createApplicationVersion(params).promise();
 }
 
 /**
@@ -140,7 +140,7 @@ export default async function configure(): Promise<void> {
 
     const docker = this.config.docker;
 
-    const S3: IS3 = this.getS3Instance(this.serverless, this.options.region);
+    const S3: S3 = this.getS3Instance(this.serverless, this.options.region);
 
     if (docker && docker.auth) {
       bucketName = docker.auth.configBucketName;
@@ -148,11 +148,11 @@ export default async function configure(): Promise<void> {
 
       this.logger.log('Uploading docker auth file to S3...');
 
-      await S3.uploadAsync({
+      await S3.upload({
         Body: await fsp.readFile(configFile, 'utf-8'),
         Bucket: bucketName,
         Key: configFile,
-      });
+      }).promise();
 
       this.logger.log('docker auth file uploaded to to S3 successfully');
     }
@@ -166,7 +166,7 @@ export default async function configure(): Promise<void> {
 
     await configureDockerRun(S3, dockerConfig, this.logger);
 
-    const EB: IEB = this.getElasticBeanstalkInstance(this.serverless, this.options.region);
+    const EB: ElasticBeanstalk = this.getElasticBeanstalkInstance(this.serverless, this.options.region);
 
     const params = {
       ApplicationName: stackOutputs[this.config.variables.applicationName],

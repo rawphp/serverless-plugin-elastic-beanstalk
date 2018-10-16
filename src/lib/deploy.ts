@@ -1,7 +1,8 @@
 import * as BPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
-import { IEB, IPluginConfig, IS3 } from '../types';
+import { ElasticBeanstalk, S3 } from "aws-sdk";
+import { IPluginConfig } from '../types';
 import getVersion from './getVersion';
 
 /**
@@ -34,29 +35,29 @@ export default async function deploy() {
 
   process.env.PATH = `/root/.local/bin:${process.env.PATH}`;
 
-  const S3: IS3 = this.getS3Instance(this.serverless, this.options.region);
+  const S3: S3 = this.getS3Instance(this.serverless, this.options.region);
 
   this.logger.log('Uploading Application Bundle to S3...');
 
   this.logger.log(
     JSON.stringify(
-      await S3.uploadAsync({
+      await S3.upload({
         Body: fsp.createReadStream(bundlePath),
         Bucket: ebConfig.bucket,
         Key: fileName,
-      }),
+      }).promise(),
     ),
   );
 
   this.logger.log('Application Bundle Uploaded to S3 Successfully');
 
-  const EB: IEB = this.getElasticBeanstalkInstance(this.serverless, this.options.region);
+  const EB: ElasticBeanstalk = this.getElasticBeanstalkInstance(this.serverless, this.options.region);
 
   this.logger.log('Creating New Application Version...');
 
   this.logger.log(
     JSON.stringify(
-      await EB.createApplicationVersionAsync({
+      await EB.createApplicationVersion({
         ApplicationName: applicationName,
         Process: true,
         SourceBundle: {
@@ -64,7 +65,7 @@ export default async function deploy() {
           S3Key: fileName,
         },
         VersionLabel: versionLabel,
-      }),
+      }).promise(),
     ),
   );
 
@@ -73,9 +74,9 @@ export default async function deploy() {
   let updated = false;
 
   while (!updated) {
-    const response = await EB.describeApplicationVersionsAsync({
+    const response = await EB.describeApplicationVersions({
       VersionLabels: [versionLabel],
-    });
+    }).promise();
 
     this.logger.log(JSON.stringify(response));
 
@@ -93,11 +94,11 @@ export default async function deploy() {
 
   this.logger.log(
     JSON.stringify(
-      await EB.updateEnvironmentAsync({
+      await EB.updateEnvironment({
         ApplicationName: applicationName,
         EnvironmentName: environmentName,
         VersionLabel: versionLabel,
-      }),
+      }).promise(),
     ),
   );
 
@@ -106,9 +107,9 @@ export default async function deploy() {
   updated = false;
 
   while (!updated) {
-    const response = await EB.describeEnvironmentsAsync({
+    const response = await EB.describeEnvironments({
       EnvironmentNames: [environmentName],
-    });
+    }).promise();
 
     this.logger.log(JSON.stringify(response));
 
