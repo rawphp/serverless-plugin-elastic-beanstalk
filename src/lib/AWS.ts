@@ -1,5 +1,5 @@
-import { IServerless } from "../types";
 import * as AWS from "aws-sdk";
+import { IServerless } from "../types";
 
 /**
  * Get S3 instance.

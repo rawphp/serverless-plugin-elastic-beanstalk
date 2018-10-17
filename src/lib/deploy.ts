@@ -1,7 +1,7 @@
 import * as BPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
-import { ElasticBeanstalk, S3 } from "aws-sdk";
+import { ElasticBeanstalk, S3 as IS3 } from "aws-sdk";
 import { IPluginConfig } from '../types';
 import getVersion from './getVersion';
 
@@ -35,7 +35,7 @@ export default async function deploy() {
 
   process.env.PATH = `/root/.local/bin:${process.env.PATH}`;
 
-  const S3: S3 = this.getS3Instance(this.serverless, this.options.region);
+  const S3: IS3 = this.getS3Instance(this.serverless, this.options.region);
 
   this.logger.log('Uploading Application Bundle to S3...');
 

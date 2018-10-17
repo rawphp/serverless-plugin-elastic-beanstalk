@@ -1,8 +1,8 @@
+import { ElasticBeanstalk, S3 as IS3 } from "aws-sdk";
 import * as BPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
 import CLI from 'serverless/lib/classes/CLI';
-import { ElasticBeanstalk, S3 } from "aws-sdk";
 
 /**
  * List of supported platforms.
@@ -65,13 +65,13 @@ async function createEBConfig(config: any, logger: CLI): Promise<void> {
 /**
  * Configure docker run configuration file.
  *
- * @param {S3}    S3     s3 instance
+ * @param {IS3}    S3     s3 instance
  * @param {Object} config config object
  * @param {Object} logger logger instance
  *
  * @returns {undefined}
  */
-async function configureDockerRun(S3: S3, config: any, logger: CLI): Promise<void> {
+async function configureDockerRun(S3: IS3, config: any, logger: CLI): Promise<void> {
   const dockerRunFile = `${process.cwd()}/Dockerrun.aws.json`;
   const runtimeDockerRunFile = `${process.cwd()}/.serverless/Dockerrun.aws.json`;
 
@@ -140,7 +140,7 @@ export default async function configure(): Promise<void> {
 
     const docker = this.config.docker;
 
-    const S3: S3 = this.getS3Instance(this.serverless, this.options.region);
+    const S3: IS3 = this.getS3Instance(this.serverless, this.options.region);
 
     if (docker && docker.auth) {
       bucketName = docker.auth.configBucketName;
