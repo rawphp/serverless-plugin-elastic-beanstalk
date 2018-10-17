@@ -1,7 +1,7 @@
+import { ElasticBeanstalk, S3 as IS3 } from "aws-sdk";
 import * as BPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
-import { ElasticBeanstalk, S3 as IS3 } from "aws-sdk";
 import { IPluginConfig } from '../types';
 import getVersion from './getVersion';
 
