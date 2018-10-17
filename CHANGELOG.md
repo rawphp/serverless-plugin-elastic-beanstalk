@@ -4,7 +4,7 @@
 
 ### Updated
 
-* Filter the S3 methods to remove repeated promise.
+* Changed the S3 methods to not use async methods as AWS-SDK provides promisified returns.
 
 ## [1.4.0][] - 2018-03-01
 
