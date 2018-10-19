@@ -1,12 +1,5 @@
 import CLI from 'serverless/lib/classes/CLI';
 
-export interface IServerless {
-  config: any;
-  cli: CLI;
-  service: any;
-  getProvider(type: string): any;
-}
-
 export interface IBuildConfig {
   babel?: boolean;
   sourceMaps?: boolean;

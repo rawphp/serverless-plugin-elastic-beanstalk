@@ -1,5 +1,6 @@
 import * as BPromise from 'bluebird';
 import * as path from 'path';
+import * as IServerless from 'serverless';
 import CLI from 'serverless/lib/classes/CLI';
 import { getElasticBeanstalkInstance, getS3Instance } from './lib/AWS';
 import build from './lib/build';
@@ -12,7 +13,6 @@ import {
   IElasticBeanstalkHooks,
   IElasticBeanstalkOptions,
   IPluginConfig,
-  IServerless,
 } from './types';
 
 export default class ElasticBeanstalkPlugin implements IElasticBeanstalk {
