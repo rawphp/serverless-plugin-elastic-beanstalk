@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Updated
+
+* Changed the S3 methods to not use async methods as AWS-SDK provides promisified returns.
+
 ## [1.4.0][] - 2018-03-01
 
 ### Added

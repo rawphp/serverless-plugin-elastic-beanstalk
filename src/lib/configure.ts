@@ -1,8 +1,8 @@
+import { ElasticBeanstalk, S3 as IS3 } from "aws-sdk";
 import * as BPromise from 'bluebird';
 import * as fsp from 'fs-promise';
 import * as path from 'path';
 import CLI from 'serverless/lib/classes/CLI';
-import { IEB, IS3 } from "../types";
 
 /**
  * List of supported platforms.
@@ -91,11 +91,11 @@ async function configureDockerRun(S3: IS3, config: any, logger: CLI): Promise<vo
   try {
     await fsp.writeFile(runtimeDockerRunFile, content);
 
-    await S3.uploadAsync({
+    await S3.upload({
       Body: content,
       Bucket: config.bucketName,
       Key: 'Dockerrun.aws.json',
-    });
+    }).promise();
   } catch (error) {
     logger.log(error);
   }
@@ -104,13 +104,13 @@ async function configureDockerRun(S3: IS3, config: any, logger: CLI): Promise<vo
 /**
  * Create a new application version.
  *
- * @param {IEB}    EB     elastic beanstalk instance
+ * @param {ElasticBeanstalk}    EB     elastic beanstalk instance
  * @param {Object} params update environment parameters
  *
  * @returns {Object} update environment response
  */
-async function deployApplicationVersion(EB: IEB, params: any): Promise<any> {
-  return EB.createApplicationVersionAsync(params);
+async function deployApplicationVersion(EB: ElasticBeanstalk, params: any): Promise<any> {
+  return EB.createApplicationVersion(params).promise();
 }
 
 /**
@@ -148,11 +148,11 @@ export default async function configure(): Promise<void> {
 
       this.logger.log('Uploading docker auth file to S3...');
 
-      await S3.uploadAsync({
+      await S3.upload({
         Body: await fsp.readFile(configFile, 'utf-8'),
         Bucket: bucketName,
         Key: configFile,
-      });
+      }).promise();
 
       this.logger.log('docker auth file uploaded to to S3 successfully');
     }
@@ -166,7 +166,7 @@ export default async function configure(): Promise<void> {
 
     await configureDockerRun(S3, dockerConfig, this.logger);
 
-    const EB: IEB = this.getElasticBeanstalkInstance(this.serverless, this.options.region);
+    const EB: ElasticBeanstalk = this.getElasticBeanstalkInstance(this.serverless, this.options.region);
 
     const params = {
       ApplicationName: stackOutputs[this.config.variables.applicationName],

@@ -54,7 +54,7 @@
     "esdoc": "0.x.x",
     "esdoc-es7-plugin": "0.x.x",
     "mocha": "3.x.x",
-    "serverless": "1.13.0",
+    "serverless": "^1.32.0",
     "sinon": "1.x.x",
     "ts-node": "3.x.x",
     "tslint": "5.x.x",
