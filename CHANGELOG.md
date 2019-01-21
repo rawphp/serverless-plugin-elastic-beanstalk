@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [1.5.1][] - 2019-01-22
+
 ### Updated
 
 - Updated `bundle-bundler` dependency
@@ -51,7 +53,8 @@
 * Updated dependencies
 * Updated AWS ElasticBeanstalk platform versions
 
-[Unreleased]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.5.1...HEAD
+[1.5.1]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/rawphp/serverless-plugin-elastic-beanstalk/compare/v1.2.2...v1.3.0
