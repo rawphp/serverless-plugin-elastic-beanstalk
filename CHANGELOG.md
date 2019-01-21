@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Updated
+
+- Updated `bundle-bundler` dependency
+
 ## [1.5.0][] - 2018-10-22
 
 ### Updated
