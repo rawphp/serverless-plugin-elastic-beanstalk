@@ -1337,10 +1337,10 @@ builtin-status-codes@^3.0.0:
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
   integrity sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
 
-bundle-bundler@0.x.x:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/bundle-bundler/-/bundle-bundler-0.2.3.tgz#18207dcb5bc8ee225cc1c04ee29c491b716c0222"
-  integrity sha1-GCB9y1vI7iJcwcBO4pxJG3FsAiI=
+bundle-bundler@0.2.x:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/bundle-bundler/-/bundle-bundler-0.2.4.tgz#f94d191b90acb35f5335be3efdffe5f302e8cfbc"
+  integrity sha512-vZ8c/1UV30R7m/Wk17TtvF1uLcxf5tOe+Iozfj2+2m6kNC+656PcXITDtFUH5HUEGITUYyGsOInDBKXr69FAXg==
   dependencies:
     bluebird "3.x.x"
     fs-promise "2.x.x"

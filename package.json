@@ -33,7 +33,7 @@
   "dependencies": {
     "aws-sdk": "2.x.x",
     "bluebird": "3.x.x",
-    "bundle-bundler": "0.x.x",
+    "bundle-bundler": "0.2.x",
     "fs-promise": "2.x.x"
   },
   "devDependencies": {
